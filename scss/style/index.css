@@ -1,0 +1,131 @@
+@charset "UTF-8";
+.parent {
+  color: red;
+  border: 1px solid blue;
+  font: "Myriad Pro" Myriad "Helvetica Neue" 、Helvetica、 "Liberation Sans" Arial;
+}
+
+.child-1 {
+  width: 200px;
+  border: 1px solid blue;
+}
+
+.child-2 {
+  width: 400px;
+  border: 1px solid blue;
+}
+
+.child-3 {
+  border: 1px solid green;
+}
+
+.child-4 {
+  margin-left: 40px;
+}
+
+.child-5 {
+  margin-left: 40px;
+}
+
+.parent .child-2 {
+  border-style: solid;
+  border-width: 1px;
+  border-color: skyBlue;
+  margin: 20px;
+  margin-left: 40px;
+}
+
+.child-4:hover {
+  color: palegreen;
+}
+
+.parent .child-4 {
+  background-color: purple;
+}
+
+/**
+ * 约定：对于@import 引入的sass文件，通常情况下，我们很多其他页面需要用到，而这些@import引入的文件仅做导入使用，并不需要生成对应的css文件。
+ * 对于这样的sass文件，我们称之为局部文件；
+ * 局部文件的文件名以下划线开头，这样sass文件在编译时就不会单独编译这个文件输入css，而是把这个文件用作导入
+ */
+/**
+ * 通过@import 我们可能会导入多个scss文件，导致命名的变量重复，如果重复声明一个变量，后面的变量值会覆盖前面的，
+ * 为不影响原先的设计，可以使用 !default 来指定默认值（表示：如果这个变量被声明赋值了，那就用它声明的值，否则就用这个默认值。）
+ */
+.parent .child-6 {
+  background-color: skyBlue;
+}
+
+.parent .child-7 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+  text-indent: 2em;
+}
+
+/* 原生CSS导入的问题： 
+  由于sass兼容原生的css，所以它也支持原生的CSS@import。尽管通常在sass中使用@import时，sass会尝试找到对应的sass文件并导入进来，但在下列三种情况下会生成原生的CSS@import，尽管这会造成浏览器解析css时的额外下载：
+  1）被导入文件的名字以.css结尾；（可以将原来的css样式重命名为scss结尾
+  2）被导入文件的名字是一个URL地址（比如http://www.sass.hk/css/css.css），由此可用谷歌字体API提供的相应服务；
+  3）被导入文件的名字是CSS的url()值。 
+*/
+.child-8 {
+  color: #333;
+  padding: 1 0;
+  font-style: italic;
+  /* 斜体，这个注释会显示 */
+}
+
+/**
+ * 通过@mixin 来定一个混入器的样式。 通常用于将一段重复利用的代码抽离出来，进行共用，类似于js中的类的作用
+ * 在需要的样式中通过 @include 混入器名字 俩进行引用
+ */
+.child-9 {
+  background-color: #ddd;
+  padding: 10px;
+  width: 200px;
+  margin: auto;
+  text-align: center;
+  border-radius: 10px;
+}
+
+/**
+ * 1)直接传参
+ * 2）避免传错，可以通过key:value的形式进行传参
+ */
+.child-9 {
+  color: blue;
+  color: blue;
+}
+
+.child-9:hover {
+  color: red;
+}
+
+.child-9:visited {
+  color: green;
+}
+
+.child-9:hover {
+  color: red;
+}
+
+.child-9:visited {
+  color: green;
+}
+
+/**
+ * 在传参时，我们也可以像js中的函数传参时一样，指定参数的默认值
+ */
+.child-10 {
+  color: blue;
+}
+
+.child-10:hover {
+  color: blue;
+}
+
+.child-10:visited {
+  color: blue;
+}
+/*# sourceMappingURL=index.css.map */
