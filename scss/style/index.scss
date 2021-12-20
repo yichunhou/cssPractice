@@ -94,7 +94,7 @@ $bgc-color: #ccc !default;
 // 3.2嵌套导入
 // @import 可以使用在css规则内，导入的文件会对应的替换到css规则内，但对外部其余元素不影响，类似于之后的混入
 .parent {
-  @import './theme'; // 这个文件以 "_"开头，文件目录里面没有生成对应的css文件，即只做导入使用。
+  @import './_theme'; // 这个文件以 "_"开头，文件目录里面没有生成对应的css文件，即只做导入使用。
 }
 /* 原生CSS导入的问题： 
   由于sass兼容原生的css，所以它也支持原生的CSS@import。尽管通常在sass中使用@import时，sass会尝试找到对应的sass文件并导入进来，但在下列三种情况下会生成原生的CSS@import，尽管这会造成浏览器解析css时的额外下载：
@@ -164,3 +164,31 @@ $bgc-color: #ccc !default;
 .child-10 {
   @include link-colors(blue); // 第一种传参方式
 }
+
+
+// 6. 继承
+/**
+ * 继承和混入有些类似，都是为了简化样式表，但有些不同
+ * 1）混入是将定义的样式重复性的插入到定义的样式表中去， 继承而是对选择器添加对应的类名，不会重复性的插入样式，因此继承生成的css样式体积更小
+ * 2）使用继承容易造成生成的css中包含大量的选择器复制，避免措施：不要在css规则中使用后代选择器（比如.foo .bar）去继承css规则。如果你这么做，同时被继承的css规则有通过后代选择器修饰的样式，生成css中的选择器的数量很快就会失控：（官方文档）
+ */
+
+// 错误示例:
+.child-12 .span-12 {
+  color: #ccc;
+  font-weight: 600;
+}
+.child-13 .span-13 {
+  @extend .span-12;
+}
+
+/**
+ * 编译后的样式
+ * 
+ * .child-12 .span-12, .child-12 .child-13 .span-13, .child-13 .child-12 .span-13 {
+ *   color: #ccc;
+ *   font-weight: 600;
+ * }
+ * 
+ */
+

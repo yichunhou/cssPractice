@@ -86,6 +86,8 @@
   width: 200px;
   margin: auto;
   text-align: center;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
   border-radius: 10px;
 }
 
@@ -128,4 +130,23 @@
 .child-10:visited {
   color: blue;
 }
-/*# sourceMappingURL=index.css.map */
+
+/**
+ * 继承和混入有些类似，都是为了简化样式表，但有些不同
+ * 1）混入是将定义的样式重复性的插入到定义的样式表中去， 继承而是对选择器添加对应的类名，不会重复性的插入样式，因此继承生成的css样式体积更小
+ * 2）使用继承容易造成生成的css中包含大量的选择器复制，避免措施：不要在css规则中使用后代选择器（比如.foo .bar）去继承css规则。如果你这么做，同时被继承的css规则有通过后代选择器修饰的样式，生成css中的选择器的数量很快就会失控：（官方文档）
+ */
+.child-12 .span-12, .child-12 .child-13 .span-13, .child-13 .child-12 .span-13 {
+  color: #ccc;
+  font-weight: 600;
+}
+
+/**
+ * 编译后的样式
+ * 
+ * .child-12 .span-12, .child-12 .child-13 .span-13, .child-13 .child-12 .span-13 {
+ *   color: #ccc;
+ *   font-weight: 600;
+ * }
+ * 
+ */
